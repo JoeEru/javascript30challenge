@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Drumkit</title>
+	<style>
+		body{
+				background-image: url('wallpaper.jpg');
+			    background-repeat: no-repeat;
+			    background-attachment: fixed;
+			    background-position: center; 
+			    background-size: 100% 100%;
+			    color:#eee;
+		}
+		
+
+		ul{
+			margin-top: 20%;
+    		margin-left: 25%;
+		}
+		li{
+			width: 100px;
+		    height: 100px;
+		    padding: 4px;
+		    display: inline-block;
+		    text-align: center;
+		    border : solid 2px #fff;
+		    font-size: 70px;
+		    margin-right: 15px;
+		    transition: all 0.07s;
+		}
+
+		.playing{
+		    transform: scale(1.25, 1.25);
+			border : solid 2px orange;
+			box-shadow: 0px 0px 4px 3px orange;
+			color : orange;
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li data-key="65" >A</li>
+		<li data-key="90" >Z</li>
+		<li data-key="69" >E</li>
+		<li data-key="82" >R</li>
+		<li data-key="84" >T</li>	
+	</ul>
+
+	<audio src="sounds/boom.wav" data-key="65"></audio>
+	<audio src="sounds/clap.wav" data-key="90"></audio>
+	<audio src="sounds/hihat.wav" data-key="69"></audio>
+	<audio src="sounds/kick.wav" data-key="82"></audio>
+	<audio src="sounds/openhat.wav" data-key="84"></audio>
+
+
+	<script>
+
+
+	  window.addEventListener("keydown", function(e){
+
+	  	const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+	  	const key = document.querySelector(`li[data-key="${e.keyCode}"]`);
+
+	  	if(!audio) return;
+	  	audio.currentTime = 0;
+	  	audio.play();
+
+	  	key.setAttribute("class" ,"playing");
+	  	setTimeout(function (){
+			key.removeAttribute("class");
+		}, 200); 
+
+	  	//console.log(audio);
+
+
+
+	  });
+
+
+
+
+
+	</script>
+</body>
+</html>

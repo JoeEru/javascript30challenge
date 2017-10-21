@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ClockAnimation</title>
+	<style>
+		body{
+				background-image: url('wall.jpg');
+			    background-repeat: no-repeat;
+			    background-attachment: fixed;
+			    background-position: center; 
+			    background-size: 100% 100%;
+		}
+
+		.clock{
+			border: solid 11px #E91E63;
+		    border-radius: 50%;
+		    width: 300px;
+		    height: 300px;
+		    left: 40%;
+		    top: 25%;
+		    position: absolute;	
+		}
+
+		.hand{
+		    width: 48%;
+		    height: 6px;
+		    top: 50%;
+		    left: 2%;
+		    position: absolute;
+		    background: white;
+		    transform-origin: 100%;
+		    /* transition: all 0.05s; */
+		    transform: rotate(90deg);
+		    transition-timing-function:  cubic-bezier(0.42, 0, 0.47, 2.15)
+		}
+	</style>
+</head>
+<body>
+
+	<div class="clock">
+		<div class="hand hand-hour"></div>
+		<div class="hand hand-min"></div>
+		<div class="hand hand-sec"></div>
+	</div>
+	
+
+	<script>
+
+		const secHand = document.querySelector(".hand-sec");
+		const minHand = document.querySelector(".hand-min");
+		const hourHand = document.querySelector(".hand-hour");
+
+		function setDate() {
+			//console.log("hi"); 
+
+
+			var now = new Date();
+			var secs = now.getSeconds();
+			var mins = now.getMinutes();
+			var hours = now.getHours();
+
+			var secsDeg = (((secs / 60) * 360) + 90);
+
+			var minsDeg = (((mins / 60) * 360) + 90);
+
+			var hoursDeg = (((hours / 12) * 360) + 90);
+			
+			secHand.style.transform = `rotate(${secsDeg}deg)`;
+			minHand.style.transform = `rotate(${minsDeg}deg)`;
+			hourHand.style.transform = `rotate(${hoursDeg}deg)`;
+
+			console.log("secs = " + secs);
+			console.log("mins = " + mins);
+			console.log("hours = " + hours);
+		}
+
+		setInterval(setDate, 1000);
+
+	</script>
+</body>
+</html>
