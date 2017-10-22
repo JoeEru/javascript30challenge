@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Js Animation</title>
+	<style>	
+
+		:root{
+			--base: #ffc600;
+			--blur : 3px;
+			--spacing : 10px;
+		}
+
+		body{
+			background-color: #193549;
+			background: #193549;
+			color: white;
+			font-family: 'helvetica neue', sans-serif;
+			font-weight: 100;
+			font-size: 50px;
+
+		}
+		
+		img{
+			margin-top : 3%;
+			width: 500px;
+			height: 300px;
+			padding: var(--spacing);
+			background: var(--base);
+			filter: blur(var(--blur));
+		}
+
+		.coloredText{
+			color: var(--base);
+		}
+
+	</style>
+</head>
+<body>
+
+	<h2>Update CSS Variable With <span class="coloredText">JS</span> </h2>
+	<div class="controls">
+		<label for="spacing">Spacing</label>
+		<input type="range" name="spacing" min="10" max="200" value="4" data-sizing="px">
+		<label for="blur">Blur</label>
+		<input type="range" name="blur" min="0" max="100" value="4" data-sizing="px">
+		<label for="base">Base Color</label>
+		<input type="color" name="base" value="#ffc600">
+
+	</div>
+
+	<img src="image.jpg" alt="image" >
+	<script>
+
+		var inputs = document.querySelectorAll(".controls input");
+
+		function handleUpdates(){
+
+			switch(this.name){
+				case "base" :    document.documentElement.style.setProperty('--base', `${this.value}`); break;
+				case "spacing":  document.documentElement.style.setProperty('--spacing', `${this.value}px`); break;
+				case "blur" :    document.documentElement.style.setProperty('--blur', `${this.value}px`); break;
+			}
+		}
+
+		inputs.forEach(input => input.addEventListener("change",handleUpdates));
+		inputs.forEach(input => input.addEventListener("mousemove",handleUpdates));
+
+		//console.log(inputs);
+
+	</script>
+</body>
+</html>
