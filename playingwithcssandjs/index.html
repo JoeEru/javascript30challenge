@@ -53,13 +53,18 @@
 
 		var inputs = document.querySelectorAll(".controls input");
 
-		function handleUpdates(){
+		function handleUpdates(){	
 
-			switch(this.name){
+			const suffix = this.dataset.sizing || '';
+
+			document.documentElement.style.setProperty(`--${this.name}`, `${this.value}` + suffix);
+
+
+/*			switch(this.name){
 				case "base" :    document.documentElement.style.setProperty('--base', `${this.value}`); break;
 				case "spacing":  document.documentElement.style.setProperty('--spacing', `${this.value}px`); break;
 				case "blur" :    document.documentElement.style.setProperty('--blur', `${this.value}px`); break;
-			}
+			}*/
 		}
 
 		inputs.forEach(input => input.addEventListener("change",handleUpdates));
