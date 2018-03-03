@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script type="text/javascript">
+
+
+    //info error warning
+    console.info('better late than never');
+    console.error('shitt!!');
+    console.warn('you better be careful buddy!');
+
+    //count and groupe
+    console.groupCollapsed("youssef");
+    console.count("youssef")
+    console.count("youssef")
+    console.count("youssef")
+    console.count("youssef")
+    console.count("youssef")
+    console.count("youssef")
+    console.groupEnd("youssef");
+
+
+    //timing
+    console.time("fetching data");
+    fetch("http://xhub.ddns.net:7070/api/countries")
+    .then(data => data.json())
+    .then(data => {
+      console.timeEnd("fetching data");
+      console.table(data);
+    })
+  </script>
+</body>
+</html>

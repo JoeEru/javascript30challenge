@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <style media="screen">
+    li {
+      width: 420px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <ul>
+    <li>1 quid amet labore cillum cillum irure dolor fugiat fugiat aute</li>
+    <li>2 quid amet labore cillum cillum irure dolor fugiat fugiat aute</li>
+    <li>3 quid amet labore cillum cillum irure dolor fugiat fugiat aute</li>
+    <li>4 quid amet labore cillum cillum irure dolor fugiat fugiat aute</li>
+    <li>5 quid amet labore cillum cillum irure dolor fugiat fugiat aute</li>
+    <li>6 quid amet labore cillum cillum irure dolor fugiat fugiat aute</li>
+    <li>7 quid amet labore cillum cillum irure dolor fugiat fugiat aute</li>
+    <li>8 quid amet labore cillum cillum irure dolor fugiat fugiat aute</li>
+    <li>9 quid amet labore cillum cillum irure dolor fugiat fugiat aute</li>
+    <li>10 quid amet labore cillum cillum irure dolor fugiat fugiat aute</li>
+    <li>11 quid amet labore cillum cillum irure dolor fugiat fugiat aute</li>
+    <li>12 quid amet labore cillum cillum irure dolor fugiat fugiat aute</li>
+    <li>13 quid amet labore cillum cillum irure dolor fugiat fugiat aute</li>
+  </ul>
+
+  <script type="text/javascript">
+    const all = document.querySelectorAll("li");
+
+
+    function applyStyle(li) {
+      if (li.getAttribute("style") !== null) {
+        li.removeAttribute("style");
+      } else {
+        li.setAttribute("style", "text-decoration : line-through;background-color : orange;color : white");
+      }
+    }
+
+    let lastClicked;
+
+    function handleEvents(e) {
+      if (e.shiftKey) {
+        let start = Math.min(Array.prototype.indexOf.call(all,lastClicked),Array.prototype.indexOf.call(all,this))
+        let finish = Math.max(Array.prototype.indexOf.call(all,lastClicked),Array.prototype.indexOf.call(all,this));
+        for (var i = start +1; i < finish; i++) {
+          applyStyle(all.item(i));
+        }
+      }
+      lastClicked = this;
+      applyStyle(this);
+    }
+
+    all.forEach((li) => {
+      li.addEventListener("click", handleEvents);
+    });
+  </script>
+</body>
+
+</html>
