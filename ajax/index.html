@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <style media="screen">
+    .highlight{
+        background-color: orange;
+    }
+  </style>
+</head>
+<body>
+
+  <form>
+    <input type="text" class="search" name="search" placeholder="search...">
+    <ul id="cities">
+    </ul>
+  </form>
+
+  <script type="text/javascript">
+    const cities = [];
+      fetch("http://xhub.ddns.net:7070/api/cities")
+      .then(blob => blob.json())
+      .then(data => cities.push(...data))
+      .catch(err => console.log(err));
+
+
+    let findMatches = (search,cities) =>{
+        return cities.filter((city) => {
+          let regx = new RegExp(search,'gi');
+          return city.name_en.match(regx);
+        })
+
+
+    }
+    const searchInput = document.querySelector('.search');
+    const suggestions = document.querySelector('#cities');
+
+    function displayMatches() {
+      console.log(this.value);
+        const html = findMatches(this.value,cities).map((city) => {
+          let regx = new RegExp(this.value,"gi");
+          let cityName = city.name_en.replace(regx,`<span class="highlight">${this.value}</span>`);
+          return `
+                <li>
+                  <span>${cityName}</span>
+                  <span>${city.latitude},${city.longitude}</span>
+                  <span>${city.country.name_ar}</span>
+                </li>
+          `
+        }).join('')
+
+        suggestions.innerHTML = html;
+    }
+
+    searchInput.addEventListener('change' ,displayMatches);
+    searchInput.addEventListener('keyup' ,displayMatches);
+
+
+  </script>
+</body>
+</html>
