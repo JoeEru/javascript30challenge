@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Mouse Shadow</title>
+  </head>
+  <style>
+    html {
+      color: black;
+      font-family: sans-serif;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    .container {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: black;
+    }
+
+    h1 {
+      text-shadow: 10px 10px 0 rgba(0, 0, 0, 1);
+      font-size: 100px;
+    }
+  </style>
+
+<body>
+
+  <div class="container">
+    <h1 contenteditable>🔥TRRR!🔥</h1>
+  </div>
+
+
+
+  <script type="text/javascript">
+    const container = document.querySelector(".container");
+    const text = document.querySelector("h1");
+    const stretch = 100;// 100 px to stretch
+    function moveShadow(e) {
+      //console.log(e);
+      const {offsetWidth: width,offsetHeight: height} = this;
+      let {offsetX: x,offsetY: y} =  e;
+      if(this !== e.target){
+        x = x + e.target.offsetLeft;
+        y = y + e.target.offsetTop;
+      }
+
+      let pixelX = Math.round((x / width * stretch) - (stretch / 2));
+      let pixelY = Math.round((y / height * stretch) - (stretch / 2));
+      console.log(pixelX,pixelY);
+
+      text.style.textShadow = `
+        ${pixelX}px ${pixelY}px rgba(255,0,0,0.8),
+        ${pixelY}px ${pixelX * -1}px rgba(0,255,0,0.8),
+        ${pixelY*-1}px ${pixelX}px rgba(0,0,255,0.8)
+      `;
+    }
+    container.addEventListener("mousemove", moveShadow);
+  </script>
+</body>
+
+</html>
