@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script type="text/javascript" src="http://www.cornify.com/js/cornify.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script type="text/javascript">
+    const pressed = [];
+    const keyword = "youssef";
+    let audio = new Audio("audio.m4a");
+    this.addEventListener("keyup", (e) => {
+      pressed.push(e.key);
+      pressed.splice(-keyword.length-1, pressed.length - keyword.length);
+      console.log(pressed);
+      if(pressed.join('').includes(keyword)){
+        console.log("%c BINGOOOOO!! ","font-size : 100px;color : blue")
+
+        audio.play()
+
+        cornify_add();
+      }
+    });
+  </script>
+</body>
+
+</html>

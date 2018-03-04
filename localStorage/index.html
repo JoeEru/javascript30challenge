@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <style>
+    ul{
+      list-style: none;
+    }
+  </style>
+</head>
+
+<body>
+  <ul id="todos">
+  </ul>
+  <form class="todo-form">
+    <input type="text" name="todo" placeholder="type in ur todo...">
+    <input type="submit" name="submit" value="Add"> <br><br>
+    <button type="button" name="check">check ALL</button>
+    <button type="button" name="uncheck">uncheck ALL</button>
+    <button type="button" name="delete">delete ALL</button>
+  </form>
+
+
+  <script type="text/javascript">
+    const form = document.querySelector(".todo-form");
+    const todos = JSON.parse(localStorage.getItem('todos')) || [];
+    const todosList = document.querySelector("#todos");
+
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      const text = document.querySelector("input[name='todo']").value;
+      const todo = {
+        text,
+        done : false
+      }
+      todos.push(todo);
+      displayTodos(todos,todosList);
+      //store in browser local storage.
+      localStorage.setItem('todos',JSON.stringify(todos));
+      this.reset();
+      //console.log(todos);
+    }
+
+    function displayTodos(items = [],itemsList) {
+      itemsList.innerHTML = items.map((td, i) => {
+        return `
+           <li>
+              <input type="checkbox" data-index=${i} id="item${i}" ${td.done? 'checked' : ''}/>
+              <label for="item${i}">${td.text}</label>
+           </li>
+           `
+      }).join('');
+    }
+
+    function toggleDone(e){
+      if(!e.target.matches("input")) return;
+      //console.log(e.target);
+      todos[e.target.dataset.index].done = !todos[e.target.dataset.index].done;
+      localStorage.setItem('todos',JSON.stringify(todos));
+    }
+
+    form.addEventListener("submit", handleSubmit);
+    todosList.addEventListener("click" , toggleDone)
+
+
+    //adding the todos to the list.
+    displayTodos(todos,todosList);
+
+
+    //buttons
+    const checkbtn = document.querySelector("button[name='check']");
+    const uncheckbtn = document.querySelector("button[name='uncheck']");
+    const deletebtn = document.querySelector("button[name='delete']");
+
+    checkbtn.addEventListener('click' , (e) => {
+      todos.forEach(td => td.done = true);
+      localStorage.setItem('todos',JSON.stringify(todos));
+      displayTodos(todos,todosList);
+    });
+
+    uncheckbtn.addEventListener('click' , (e) => {
+      todos.forEach(td => td.done = false);
+      localStorage.setItem('todos',JSON.stringify(todos));
+      displayTodos(todos,todosList);
+    });
+
+    deletebtn.addEventListener('click' , (e) => {
+      todos.splice(0,todos.length)
+      localStorage.removeItem('todos');
+      displayTodos(todos,todosList);
+    });
+
+
+
+
+  </script>
+</body>
+
+</html>
